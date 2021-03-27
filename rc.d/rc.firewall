@@ -1,0 +1,8 @@
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+iptables -A INPUT -i eth0 -p tcp -m tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i eth0 -p udp -m udp -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A INPUT -i lo -j ACCEPT

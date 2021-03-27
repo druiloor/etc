@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Start nscd:
+nscd_start() {
+  if [ -x /usr/sbin/nscd -a -d /var/db/nscd -a -d /var/run/nscd ]; then
+    echo "Starting NSCD:  /usr/sbin/nscd"
+    /usr/sbin/nscd
+  fi
+}
+
+# Stop nscd:
+nscd_stop() {
+  killall nscd
+}
+
+# Restart nscd:
+nscd_restart() {
+  nscd_stop
+  sleep 1
+  nscd_start
+}
+
+case "$1" in
+'start')
+  nscd_start
+  ;;
+'stop')
+  nscd_stop
+  ;;
+'restart')
+  nscd_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
