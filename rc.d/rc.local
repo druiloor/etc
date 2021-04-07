@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.local:  Local system initialization script.
+#
+# Put any local startup commands in here.  Also, if you have
+# anything that needs to be run at shutdown time you can
+# make an /etc/rc.d/rc.local_shutdown script and put those
+# commands in there.
+
+# Start the Name Service Cache Daemon (NSCD):
+if [ -x /etc/rc.d/rc.nscd ]; then
+  . /etc/rc.d/rc.nscd start
+fi
+
+# Set the clock
+if ! ntpdate -s nl.pool.ntp.org ; then
+  echo "Error" ntpdate -s nl.pool.ntp.org" >&2
+elif ! hwclock --systohc ; then
+    echo "Error" hwclock --systohc" >&2
+fi
+
