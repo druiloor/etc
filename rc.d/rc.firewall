@@ -51,7 +51,8 @@ firewall_start() {
 
 # Status firewall:
 firewall_status() {
-  iptables -vL
+  #iptables -vL
+  iptables -L -v -n --line-numbers
 }
 
 case "$1" in
