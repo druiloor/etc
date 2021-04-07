@@ -15,7 +15,7 @@ firewall_start() {
   iptables -A OUTPUT -o lo -j ACCEPT
 
   # Allow outbound DHCP request
-  iptables -A OUTPUT -o eth0 -p udp --sport 67:68 --dport 67:68 -j ACCEPT
+  iptables -A OUTPUT -o eth0 -p udp --sport 68 --dport 67 -j ACCEPT
 
   # ident/auth
   iptables -A INPUT -p TCP --dport 113 -j REJECT --reject-with tcp-reset
@@ -56,7 +56,7 @@ firewall_start() {
 firewall_status() {
   #iptables -vL
   #iptables -L -v -n --line-numbers
-  iptables -vL --line-numbers
+  iptables -vL --line-numbers --exact
 }
 
 case "$1" in
